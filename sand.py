@@ -55,25 +55,25 @@ class Sand:
         for i in range(1,len(self.currentImage)+1):
             index:int = len(self.currentImage)-i
             item:tuple[int,int,int] = self.currentImage[index]
+            newKey:int = None
             if item == (239,228,176):
                 adjacents:dict[int,int] = self.getBottomAdjacent(index)
-                if len(adjacents) <= 0:
-                    continue
-                if not delta:
-                    delta = True
-                newIndex:int = None
                 if 1 in adjacents and self.currentImage[adjacents[1]] not in [(0,0,0),(239,228,176)]:
-                    newIndex = adjacents[1]
+                    newKey = 1
                 else:
-                    keys:list[int] = list(adjacents.keys())
-                    for key in keys:
-                        if self.currentImage[adjacents[key]] in [(0,0,0),(239,228,176)]:
-                            keys.remove(key)
-                    if len(keys) == 0:
-                        continue
-                    newIndex = adjacents[random.choice(keys)]
-                self.currentImage[index] = (255,255,255)
-                self.currentImage[newIndex] = (239,228,176)
+                    keyOptions:list[int] = []
+                    if 0 in adjacents and self.currentImage[adjacents[0]] not in [(0,0,0),(239,228,176)]:
+                        keyOptions.append(0)
+                    if 2 in adjacents and self.currentImage[adjacents[2]] not in [(0,0,0),(239,228,176)]:
+                        keyOptions.append(2)
+                    if len(keyOptions) > 0:
+                        newKey = random.choice(keyOptions)
+                if newKey != None:
+                    if not delta:
+                        delta = True
+                    newIndex = adjacents[newKey]
+                    self.currentImage[index] = (255,255,255)
+                    self.currentImage[newIndex] = (239,228,176)
         return delta
     
     def getFrames(self,till:int) -> list[list[tuple[int,int,int]]]:
@@ -111,4 +111,8 @@ class Sand:
             videoWriter.write(cv2.cvtColor(numpy.array(image,dtype=numpy.uint8),cv2.COLOR_RGB2BGR))
         videoWriter.release()
 
-sand:Sand = Sand('sand1',True,50,2)
+folderPath:str = input("Folder path: ")
+saveFrames:bool = bool(input("Save frames: "))
+time:int = int(input("Time: "))
+fps:int = int(input("FPS: "))
+sand:Sand = Sand(folderPath,saveFrames,time,fps)
