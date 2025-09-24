@@ -48,6 +48,10 @@ class Sand:
                 adjacents[0] = self.coordsToIndex((coordinates[0]-1,coordinates[1]+1))
             if coordinates[0] + 1 < self.size[0]:
                 adjacents[2] = self.coordsToIndex((coordinates[0]+1,coordinates[1]+1))
+        if coordinates[0] - 1 >= 0:
+            adjacents[3] = self.coordsToIndex((coordinates[0]-1,coordinates[1]))
+        if coordinates[0] + 1 < self.size[0]:
+            adjacents[4] = self.coordsToIndex((coordinates[0]+1,coordinates[1]))
         return adjacents
     
     def proceedFrame(self) -> bool:
@@ -72,8 +76,32 @@ class Sand:
                     if not delta:
                         delta = True
                     newIndex = adjacents[newKey]
-                    self.currentImage[index] = (255,255,255)
-                    self.currentImage[newIndex] = (239,228,176)
+                    self.currentImage[index],self.currentImage[newIndex] = self.currentImage[newIndex],(239,228,176)
+            if item == (0,162,232):
+                adjacents:dict[int,int] = self.getBottomAdjacent(index)
+                if 1 in adjacents and self.currentImage[adjacents[1]] not in [(0,0,0),(239,228,176),(0,162,232)]:
+                    newKey = 1
+                else:
+                    keyOptions:list[int] = []
+                    if 0 in adjacents and self.currentImage[adjacents[0]] not in [(0,0,0),(239,228,176),(0,162,232)]:
+                        keyOptions.append(0)
+                    if 2 in adjacents and self.currentImage[adjacents[2]] not in [(0,0,0),(239,228,176),(0,162,232)]:
+                        keyOptions.append(2)
+                    if len(keyOptions) > 0:
+                        newKey = random.choice(keyOptions)
+                    else:
+                        keyOptions2:list[int] = []
+                        if 3 in adjacents and self.currentImage[adjacents[3]] not in [(0,0,0),(239,228,176),(0,162,232)]:
+                            keyOptions2.append(3)
+                        if 4 in adjacents and self.currentImage[adjacents[4]] not in [(0,0,0),(239,228,176),(0,162,232)]:
+                            keyOptions2.append(4)
+                        if len(keyOptions2) > 0:
+                            newKey = random.choice(keyOptions2)
+                if newKey != None:
+                    if not delta and newKey in [0,1,2]:
+                        delta = True
+                    newIndex = adjacents[newKey]
+                    self.currentImage[index],self.currentImage[newIndex] = self.currentImage[newIndex],(0,162,232)
         return delta
     
     def getFrames(self,till:int) -> list[list[tuple[int,int,int]]]:
