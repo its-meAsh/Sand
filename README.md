@@ -35,7 +35,7 @@ pip install Pillow opencv-python numpy
 ```
 ## Usage
 
-1.  **Prepare your input image:** Place your starting image, which **must be named `sand.png`**, in the project folder. Here is an example of a valid input image:
+1.  **Prepare your input image:** Place your starting image, which **must be named `sand.png`**, in the project folder. You can find a few examples in the repository.
     
 2.  **Run the script:** Open your terminal or command prompt, navigate to the folder containing `sand.py` and `sand.png`, and run the script.
 3.  **Enter the parameters:** The script will prompt you for four inputs:
