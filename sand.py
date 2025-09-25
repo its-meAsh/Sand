@@ -133,7 +133,7 @@ class Sand:
                 count+=1
         return imageShrinked
     def saveVideo(self,frames:list[list[tuple[int,int,int]]],fps:int,filename:str) -> None:
-        videoWriter = cv2.VideoWriter(f'{self.path}/{filename}.mp4',cv2.VideoWriter_fourcc(*f'MJPG'),fps,self.size)
+        videoWriter = cv2.VideoWriter(f'{self.path}/{filename}.mp4',cv2.VideoWriter_fourcc(*f'H264'),fps,self.size)
         for image in frames:
             image = self.shrink2D(image)
             videoWriter.write(cv2.cvtColor(numpy.array(image,dtype=numpy.uint8),cv2.COLOR_RGB2BGR))
