@@ -9,7 +9,6 @@ class Sand:
     def __init__(self,path:str,saveFrames:bool,time:int,fps:int) -> None:
         self.path:str = path
         image,self.size = self.readImage()
-        self.size = (self.size[1],self.size[0])
         self.currentImage:list[tuple[int,int,int]] = copy.deepcopy(list(image))
         frames:list[list[tuple[int,int,int]]] = self.getFrames(time)
         if saveFrames:
