@@ -1,4 +1,4 @@
-![Banner](Banner.png)
+![Banner](https://raw.githubusercontent.com/its-meAsh/python/main/Banner.png)
 # Pixel Fall
 
 Pixel Fall is a Python-based simulation that brings a classic falling sand game to life. It takes a static `.png` image as input and simulates the physics of falling "sand" and "water" pixels, generating a video of the final animation.
@@ -54,7 +54,6 @@ Save frames:
 Time: 500
 FPS: 30
 ```
-
 ---
 
 ## Connect with Me
