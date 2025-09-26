@@ -34,7 +34,7 @@ class Sand:
         return (file.getdata(),file.size)
     
     def indexToCoords(self,index:int) -> tuple[int,int]:
-        return (index%self.size[0],index//self.size[1])
+        return (index%self.size[0],index//self.size[0])
     
     def coordsToIndex(self,coords:tuple[int,int]) -> int:
         return coords[1]*self.size[0] + coords[0]
